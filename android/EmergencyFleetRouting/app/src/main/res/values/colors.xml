@@ -1,0 +1,7 @@
+<resources>
+    <color name="emergency_red">#D32F2F</color>
+    <color name="emergency_dark_red">#9A0007</color>
+    <color name="emergency_amber">#FFA000</color>
+    <color name="emergency_blue">#1976D2</color>
+    <color name="background_light">#F5F5F5</color>
+</resources>

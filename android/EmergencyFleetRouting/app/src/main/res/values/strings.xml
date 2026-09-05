@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Emergency Fleet Routing</string>
+    <string name="nav_dashboard">Dashboard</string>
+    <string name="nav_new_emergency">New Emergency</string>
+    <string name="nav_live_map">Live Map</string>
+    <string name="nav_vehicles">Vehicles</string>
+    <string name="nav_assignment_details">Assignment Details</string>
+    <string name="nav_history">History</string>
+</resources>
