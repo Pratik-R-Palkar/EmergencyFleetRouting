@@ -14,9 +14,13 @@ class TestRepositoryScaffold(unittest.TestCase):
             "README.md",
             ".gitignore",
             "LICENSE",
+            "AGENTS.md",
             os.path.join("docs", "TEAM_WORKFLOW.md"),
             os.path.join("docs", "API_CONTRACT.md"),
             os.path.join("docs", "MODULE_OWNERSHIP.md"),
+            os.path.join("docs", "LOCKED_PLAN.md"),
+            os.path.join("docs", "TASKS.md"),
+            os.path.join("docs", "TRAFFIC_STRATEGY.md"),
         ]
         for rel_path in required_files:
             full_path = os.path.join(self.root_dir, rel_path)

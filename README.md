@@ -2,6 +2,9 @@
 
 An intelligent, real-time dispatch and dynamic routing platform designed for emergency response fleets (Ambulances, Fire Services, and Police). The platform combines an Android Jetpack Compose mobile client with a high-performance Python FastAPI backend, graph-based routing algorithms (NetworkX Dijkstra/A*), and multi-criteria fleet optimization.
 
+> [!NOTE]
+> **Academic Prototype & Simulation Only**: This project is strictly an educational prototype and simulation platform. It is not certified, tested, or intended for real-world emergency dispatch, live vehicular navigation, or life-critical operations.
+
 ---
 
 ## 📌 Project Overview
@@ -82,13 +85,27 @@ EmergencyFleetRouting/
 │   └── pyproject.toml
 ├── docs/
 │   ├── API_CONTRACT.md              # REST JSON API specification
+│   ├── LOCKED_PLAN.md               # Final scope, locked stack, non-goals
 │   ├── MODULE_OWNERSHIP.md          # 4-member roles and responsibilities
-│   └── TEAM_WORKFLOW.md             # Git branch & pull request guidelines
+│   ├── TASKS.md                     # Exact work ownership and ordered build tasks
+│   ├── TEAM_WORKFLOW.md             # Git branch & pull request guidelines
+│   └── TRAFFIC_STRATEGY.md          # Traffic levels, views, and disclaimers
 ├── tests/                           # Root end-to-end and shared tests
 ├── .gitignore
+├── AGENTS.md                        # Strict instructions for AI assistants & contributors
 ├── LICENSE
 └── README.md
 ```
+
+---
+
+## 📋 Locked Project Plan & Governance
+
+This project is governed by a strictly locked specification, technology stack, and division of responsibilities:
+- **[docs/LOCKED_PLAN.md](docs/LOCKED_PLAN.md)**: Final project scope, locked technology choices, non-goals, and system flow.
+- **[docs/TASKS.md](docs/TASKS.md)**: Exact task assignments per team member and sequential build order.
+- **[docs/TRAFFIC_STRATEGY.md](docs/TRAFFIC_STRATEGY.md)**: Details on simulated traffic levels, road closure events, role-based views, and academic disclaimers.
+- **[AGENTS.md](AGENTS.md)**: Mandatory rules and guardrails for coding AI agents and human contributors.
 
 ---
 
