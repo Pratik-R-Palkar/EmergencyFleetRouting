@@ -111,14 +111,17 @@ This project is governed by a strictly locked specification, technology stack, a
 
 ## 👥 Team Roles & Responsibilities
 
-| Role | Member | Primary Branch | Focus Area |
-| :--- | :--- | :--- | :--- |
-| **Team Leader** | Member 1 | `android-frontend` | Android Jetpack Compose UI, Retrofit API integration, PR reviews |
-| **Routing Specialist** | Member 2 | `routing-engine` | NetworkX road graphs, Dijkstra/A* routing, traffic weights |
-| **Optimization Specialist** | Member 3 | `fleet-optimization` | Fleet dispatch heuristics, vehicle ranking, capacity constraints |
-| **Backend & DB Engineer** | Member 4 | `backend-integration`| FastAPI application, SQLite database, REST controllers |
+| Role | Member | Name | Primary Branch | Focus Area |
+| :--- | :--- | :--- | :--- | :--- |
+| **Team Leader** | Member 1 | **Pratik** | `android-frontend` | Android Jetpack Compose UI, Cross-Module Wiring, PR reviews |
+| **Routing Specialist** | Member 2 | **Piyush** | `routing-engine` | NetworkX road graphs, Dijkstra/A* routing, traffic weights |
+| **Optimization Specialist** | Member 3 | **Gayatri** | `fleet-optimization` | Fleet dispatch heuristics, vehicle ranking, capacity constraints |
+| **Backend & DB Engineer** | Member 4 | **Samrudhi** | `backend-integration`| FastAPI application, SQLite database, REST controllers |
 
-For detailed breakdown, refer to [docs/MODULE_OWNERSHIP.md](docs/MODULE_OWNERSHIP.md).
+> [!IMPORTANT]
+> **Strict Folder Isolation & Centralized Integration**: No member or coding AI is permitted to edit or touch another member's work folder. Each member develops their module in complete isolation within their assigned directory. All cross-module connections, interfaces, and integrations are connected exclusively by **Member 1 (Leader - Pratik)**.
+
+For detailed breakdown, refer to [docs/MODULE_OWNERSHIP.md](docs/MODULE_OWNERSHIP.md) and [docs/TASKS.md](docs/TASKS.md).
 
 ---
 

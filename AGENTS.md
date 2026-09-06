@@ -13,15 +13,26 @@ Before editing any code or documentation, you **must** read and understand:
 
 ---
 
-## 2. Core Governance and Git Rules
+## 2. Team Roster & Module Ownership
 
-1. **Assigned Branch and Scope Only**:
+| Member | Name | Primary Branch | Owned Work Directory |
+| :--- | :--- | :--- | :--- |
+| **Member 1 (Leader)** | **Pratik** | `android-frontend` | `android/EmergencyFleetRouting/` & project-wide integration |
+| **Member 2** | **Piyush** | `routing-engine` | `backend/routing/`, `backend/tests/test_routing*.py` |
+| **Member 3** | **Gayatri** | `fleet-optimization` | `backend/optimization/`, `backend/tests/test_optimization*.py` |
+| **Member 4** | **Samrudhi** | `backend-integration`| `backend/api/`, `backend/database/`, `backend/models/`, `backend/simulation/` |
+
+---
+
+## 3. Core Governance and Git Rules
+
+1. **Strict Folder Isolation & Leader Integration Rule**:
+   - **Do NOT edit or touch another member's work folder.** Every member and coding AI must work strictly inside their assigned directory.
+   - **All connections between modules must be connected and integrated exclusively by Member 1 (Leader - Pratik).** Individual members build isolated, testable modules conforming to interfaces, while Pratik handles the cross-module connections and integration.
+2. **Assigned Branch Only**:
    - Work **only** on your assigned Git branch (`android-frontend`, `routing-engine`, `fleet-optimization`, or `backend-integration`).
-   - Edit **only** files within your owned directories as assigned in [docs/TASKS.md](docs/TASKS.md) and [docs/MODULE_OWNERSHIP.md](docs/MODULE_OWNERSHIP.md).
-2. **Never Push Directly to `main`**:
-   - The `main` branch is protected. All changes must go through a pull request and be reviewed and approved by the Team Leader.
-3. **No Unapproved Cross-Module Modifications**:
-   - Never modify another teammate's owned folder without explicit approval from the Team Leader.
+3. **Never Push Directly to `main`**:
+   - The `main` branch is protected. All changes must go through a pull request and be reviewed and approved by the Team Leader (Pratik).
 4. **Frozen Architecture & Dependencies**:
    - Do not change shared API fields, dependency files (`requirements.txt`, `pyproject.toml`, `build.gradle.kts`), system architecture, or folder structure without prior team consensus and Team Leader approval.
 5. **Small, Deterministic Commits**:
@@ -31,7 +42,7 @@ Before editing any code or documentation, you **must** read and understand:
 
 ---
 
-## 3. Strict Architectural Guardrails & Excluded Technologies
+## 4. Strict Architectural Guardrails & Excluded Technologies
 
 Do **NOT** introduce, suggest, or add any of the following to this project:
 - **No Google Maps SDK or Google Traffic APIs** (OSMDroid / OpenStreetMap is planned for map rendering).
@@ -43,14 +54,14 @@ Do **NOT** introduce, suggest, or add any of the following to this project:
 
 ---
 
-## 4. Security & Credential Hygiene
+## 5. Security & Credential Hygiene
 
 - **Never commit secrets**: Do not commit API keys, access tokens, credentials, `.env` files, local database files (`*.db`, `*.sqlite3`), or personal data to Git history.
 - Any optional external trial API keys (such as an optional TomTom traffic adapter post-V1) must live only in local, uncommitted `.env` files and must remain disabled by default.
 
 ---
 
-## 5. Testing & Validation Requirement
+## 6. Testing & Validation Requirement
 
 - **Always run relevant tests before opening a pull request**:
   - Backend/Routing/Optimization: run `pytest` (ensure 100% pass rate).

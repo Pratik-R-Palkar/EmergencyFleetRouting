@@ -95,3 +95,19 @@ To prevent scope creep and keep the project manageable and robust, the following
                                              | - Synthetic closures   |
                                              +------------------------+
 ```
+
+---
+
+## 6. Team Structure & Centralized Integration Boundary
+
+| Role | Member | Assigned Name | Primary Ownership |
+| :--- | :--- | :--- | :--- |
+| **Member 1 (Leader)** | Member 1 | **Pratik** | Android UI (`android/EmergencyFleetRouting/`) & Project-wide Integration |
+| **Member 2** | Member 2 | **Piyush** | Routing Engine (`backend/routing/`) |
+| **Member 3** | Member 3 | **Gayatri** | Fleet Selection & Optimization (`backend/optimization/`) |
+| **Member 4** | Member 4 | **Samrudhi** | Backend API, Database, Schemas, & Simulation (`backend/api/`, `backend/database/`, `backend/models/`, `backend/simulation/`) |
+
+### Strict Integration Rule
+- **No member is permitted to edit or touch another member's work folder.**
+- Each member works exclusively in their allocated directory.
+- **All connections, interface bindings, and integrations between the individual modules are connected exclusively by Member 1 (Leader - Pratik).** Individual members provide self-contained, testable modules conforming to agreed interfaces.

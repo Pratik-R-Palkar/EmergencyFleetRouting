@@ -11,10 +11,10 @@ This document outlines the branching model, pull request process, and collaborat
    - The `main` branch must always represent deployable, working code with passing tests.
 2. **Dedicated Member Branches**:
    - Each team member works exclusively within their allocated feature branch:
-     - **Member 1 (Leader)**: `android-frontend`
-     - **Member 2**: `routing-engine`
-     - **Member 3**: `fleet-optimization`
-     - **Member 4**: `backend-integration`
+     - **Member 1 (Leader - Pratik)**: `android-frontend`
+     - **Member 2 (Piyush)**: `routing-engine`
+     - **Member 3 (Gayatri)**: `fleet-optimization`
+     - **Member 4 (Samrudhi)**: `backend-integration`
 3. **Short-Lived Task Branches**:
    - For specific features or bugfixes, members may branch off their allocated branch (e.g., `feat/dijkstra-weights` branched from `routing-engine`).
 
@@ -76,6 +76,7 @@ Use clear, descriptive commit messages following the Conventional Commits style:
 
 ## 4. Conflict Avoidance & Code Boundaries
 
-- Adhere strictly to [MODULE_OWNERSHIP.md](MODULE_OWNERSHIP.md).
-- Avoid modifying code owned by another teammate without prior coordination.
-- Shared models and API contracts in `backend/models/` and `docs/API_CONTRACT.md` require consensus before modification.
+- **Strict Folder Isolation**: No member is allowed to edit or touch another member's work folder. Every member works strictly within their allocated directory.
+- **Centralized Integration by Leader**: All connections, interfaces, and integration between the individual components will be connected and wired exclusively by **Member 1 (Leader - Pratik)**.
+- Adhere strictly to [MODULE_OWNERSHIP.md](MODULE_OWNERSHIP.md) and [TASKS.md](TASKS.md).
+- Shared models and API contracts in `backend/models/` and `docs/API_CONTRACT.md` require consensus with the Team Leader before modification.
