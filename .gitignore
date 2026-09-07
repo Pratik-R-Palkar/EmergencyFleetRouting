@@ -49,6 +49,16 @@ htmlcov/
 .ruff_cache/
 
 # Android build and Gradle
+.gradle/
+.kotlin/
+app/
+build.gradle.kts
+gradle.properties
+settings.gradle.kts
+gradlew
+gradlew.bat
+gradle/
+local.properties
 android/**/.gradle/
 android/**/build/
 android/**/captures/

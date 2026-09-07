@@ -1,77 +1,73 @@
 package com.emergency.routing.ui.screens
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.*
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 
-@OptIn(ExperimentalMaterial3Api::class)
+data class HistoryItem(
+    val id: String,
+    val type: String,
+    val vehicle: String,
+    val timestamp: String,
+    val durationMin: String,
+    val status: String
+)
+
 @Composable
-fun HistoryScreen(navController: NavController) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Incident & Dispatch History") },
-                navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+fun HistoryScreen() {
+    val mockHistory = listOf(
+        HistoryItem("EMG-8801", "MEDICAL", "Ambulance Alpha", "10:15 AM Today", "6.2 mins", "COMPLETED"),
+        HistoryItem("EMG-8802", "POLICE", "Police Squad 4", "09:30 AM Today", "4.0 mins", "COMPLETED"),
+        HistoryItem("EMG-8799", "FIRE", "Fire Engine 1", "Yesterday", "8.5 mins", "COMPLETED")
+    )
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        Text(
+            text = "Dispatch History & Logs",
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold
+        )
+
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            items(mockHistory) { item ->
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text(text = "${item.id} - ${item.type}", fontWeight = FontWeight.Bold)
+                            Text(text = item.status, color = Color(0xFF2E7D32), fontWeight = FontWeight.Bold)
+                        }
+                        Text(text = "Dispatched: ${item.vehicle}")
+                        Text(text = "Time: ${item.timestamp} | Response Time: ${item.durationMin}")
                     }
                 }
-            )
-        }
-    ) { innerPadding ->
-        LazyColumn(
-            modifier = Modifier
-                .padding(innerPadding)
-                .padding(16.dp)
-                .fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            item {
-                HistoryItem(
-                    id = "emg-8821",
-                    type = "MEDICAL",
-                    resolvedAt = "2026-09-05 16:45 UTC",
-                    unit = "Medic-4",
-                    duration = "14 mins"
-                )
             }
-            item {
-                HistoryItem(
-                    id = "emg-7712",
-                    type = "TRAFFIC_ACCIDENT",
-                    resolvedAt = "2026-09-05 14:10 UTC",
-                    unit = "Patrol-3 & Engine-1",
-                    duration = "32 mins"
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun HistoryItem(
-    id: String,
-    type: String,
-    resolvedAt: String,
-    unit: String,
-    duration: String
-) {
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
-    ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Text(text = "$id ($type)", style = MaterialTheme.typography.titleMedium)
-            Spacer(modifier = Modifier.height(4.dp))
-            Text("Resolved: $resolvedAt")
-            Text("Responding Units: $unit")
-            Text("Total Response & Scene Time: $duration")
         }
     }
 }

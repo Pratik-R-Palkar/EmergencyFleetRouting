@@ -1,92 +1,127 @@
 package com.emergency.routing.ui.screens
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.*
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import com.emergency.routing.viewmodel.FleetViewModel
+import com.emergency.routing.viewmodel.UiState
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun VehiclesScreen(navController: NavController) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Emergency Fleet Vehicles") },
-                navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = "Back")
+fun VehiclesScreen(viewModel: FleetViewModel) {
+    var selectedFilter by remember { mutableStateOf("ALL") }
+    val vehiclesState by viewModel.vehiclesState.collectAsState()
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+    ) {
+        Text(
+            text = "Emergency Fleet Vehicles",
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold
+        )
+
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            listOf("ALL", "AVAILABLE", "DISPATCHED", "MAINTENANCE").forEach { filter ->
+                FilterChip(
+                    selected = selectedFilter == filter,
+                    onClick = {
+                        selectedFilter = filter
+                        viewModel.loadVehicles(if (filter == "ALL") null else filter)
+                    },
+                    label = { Text(filter) }
+                )
+            }
+        }
+
+        when (val state = vehiclesState) {
+            is UiState.Loading -> {
+                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                    CircularProgressIndicator()
+                }
+            }
+            is UiState.Error -> {
+                Text(
+                    text = "Error loading vehicles: ${state.message}",
+                    color = MaterialTheme.colorScheme.error
+                )
+            }
+            is UiState.Success -> {
+                val vehiclesList = state.data
+                LazyColumn(
+                    verticalArrangement = Arrangement.spacedBy(12.dp)
+                ) {
+                    items(vehiclesList) { vehicle ->
+                        Card(
+                            modifier = Modifier.fillMaxWidth(),
+                            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                        ) {
+                            Column(modifier = Modifier.padding(16.dp)) {
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(
+                                        text = "${vehicle.callSign} (${vehicle.id})",
+                                        style = MaterialTheme.typography.titleMedium,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                    val statusColor = when (vehicle.status) {
+                                        "AVAILABLE" -> Color(0xFF2E7D32)
+                                        "DISPATCHED" -> Color(0xFFD32F2F)
+                                        else -> Color.Gray
+                                    }
+                                    Text(
+                                        text = vehicle.status,
+                                        color = statusColor,
+                                        fontWeight = FontWeight.Bold,
+                                        style = MaterialTheme.typography.labelLarge
+                                    )
+                                }
+                                Spacer(modifier = Modifier.height(6.dp))
+                                Text(text = "Type: ${vehicle.vehicleType} | Fuel: ${vehicle.fuelLevelPercent}% | Capacity: ${vehicle.capacity}")
+                                if (vehicle.equipment.isNotEmpty()) {
+                                    Text(
+                                        text = "Equipment: ${vehicle.equipment.joinToString(", ")}",
+                                        style = MaterialTheme.typography.bodyLarge,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                }
+                            }
+                        }
                     }
                 }
-            )
-        }
-    ) { innerPadding ->
-        LazyColumn(
-            modifier = Modifier
-                .padding(innerPadding)
-                .padding(16.dp)
-                .fillMaxSize(),
-            verticalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
-            item {
-                VehicleCard(
-                    callSign = "Engine-1",
-                    type = "FIRE_TRUCK",
-                    status = "AVAILABLE",
-                    fuel = 95,
-                    location = "Fire Station 1 (37.7812, -122.4111)"
-                )
             }
-            item {
-                VehicleCard(
-                    callSign = "Medic-4",
-                    type = "AMBULANCE",
-                    status = "AVAILABLE",
-                    fuel = 88,
-                    location = "General Hospital (37.7654, -122.4231)"
-                )
-            }
-            item {
-                VehicleCard(
-                    callSign = "Patrol-3",
-                    type = "POLICE_CRUISER",
-                    status = "EN_ROUTE",
-                    fuel = 78,
-                    location = "Market St Corridor (37.7701, -122.4150)"
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun VehicleCard(
-    callSign: String,
-    type: String,
-    status: String,
-    fuel: Int,
-    location: String
-) {
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
-    ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(text = callSign, style = MaterialTheme.typography.titleMedium)
-                Badge { Text(status) }
-            }
-            Spacer(modifier = Modifier.height(4.dp))
-            Text("Type: $type")
-            Text("Fuel: $fuel%")
-            Text("Location: $location")
         }
     }
 }
